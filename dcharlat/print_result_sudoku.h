@@ -9,7 +9,7 @@ void ft_putchar(char c)
 		write(1, &c, 1);
 }
 
-void	free_and_print_solution_sudoku (char **sol)
+void	print_solution_sudoku (char *sol)
 {
 	int i;
 	int j;
@@ -20,7 +20,7 @@ void	free_and_print_solution_sudoku (char **sol)
 		j = 0;
 		while (j < 9)
 		{
-			ft_putchar (sol[i][j]);
+			ft_putchar (sol[i * 9 + j]);
 			ft_putchar (' ');
 			j++;
 		}
@@ -29,9 +29,6 @@ void	free_and_print_solution_sudoku (char **sol)
 	}
 	ft_putchar ('\n');
 	i = 0;
-	while (i < 9)
-		free (sol[i++]);
-	free (sol);
 }
 
 void	print_erreur()
