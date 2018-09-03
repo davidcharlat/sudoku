@@ -47,3 +47,4 @@ shouldError "invalid_board_forbidden_input" "calling with a board with built in 
 shouldError "invalid_board_impossible" "calling with a forbidden char in an otherwise valid argument should throw"
 shouldError "invalid_board_multiple_solutions" "calling with an ambiguous board should throw"
 shouldSucceed "sudoku1"
+shouldSucceed "sudoku_difficult"
