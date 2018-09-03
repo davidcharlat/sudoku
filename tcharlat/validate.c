@@ -21,9 +21,9 @@ int validate_board(char board[81])
   i = 0;
   while (i < 81)
   {
-    if(board[i] != 0)
+    if (board[i] != 0)
     {
-      if(validate_position(i, board))
+      if (validate_position(i, board))
         return 1;
     }
     i++;
