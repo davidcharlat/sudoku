@@ -24,6 +24,7 @@ shouldError()
 
 shouldSucceed()
 {
+  echo $1
   OUTPUT="`$TARGET $(cat test/$1.sample)`";
   EXPECTED="`cat test/$1.solution`"
   ERRCODE=$?;
