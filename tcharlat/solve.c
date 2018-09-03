@@ -1,5 +1,3 @@
-#include "stdio.h"
-
 void set_unavailable(int position, char board[81], char available[9]);
 
 int solve(int position, char board[81])
