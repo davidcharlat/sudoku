@@ -48,3 +48,4 @@ shouldError "invalid_board_impossible" "calling with a forbidden char in an othe
 shouldError "invalid_board_multiple_solutions" "calling with an ambiguous board should throw"
 shouldSucceed "sudoku1"
 shouldSucceed "sudoku_difficult"
+shouldSucceed "sudoku_hardcore"
