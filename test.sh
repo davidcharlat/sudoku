@@ -6,7 +6,7 @@ gcc -Wextra -Wall -Werror -O3 -o $TARGET $USER_BUILD/*.c
 
 shouldError()
 {
-  echo $2;
+  echo "\n$2";
   OUTPUT="`$TARGET $(cat test/$1)`";
   ERRCODE=$?;
   if [ "$OUTPUT" != "Erreur" ]
@@ -24,7 +24,7 @@ shouldError()
 
 shouldSucceed()
 {
-  echo $1
+  echo "\n$1";
   OUTPUT="`$TARGET $(cat test/$1.sample)`";
   EXPECTED="`cat test/$1.solution`"
   ERRCODE=$?;
@@ -42,10 +42,12 @@ shouldSucceed()
 }
 
 # TESTS
-shouldError "invalid_arg" "calling with an invalid number of argument should throw"
-shouldError "invalid_board_forbidden_input" "calling with a board with built in errors should throw"
-shouldError "invalid_board_impossible" "calling with a forbidden char in an otherwise valid argument should throw"
-shouldError "invalid_board_multiple_solutions" "calling with an ambiguous board should throw"
-shouldSucceed "sudoku1"
-shouldSucceed "sudoku_difficult"
-shouldSucceed "sudoku_hardcore"
+time shouldError "invalid_arg" "calling with an invalid number of argument should throw"
+time shouldError "invalid_board_forbidden_input" "calling with a board with built in errors should throw"
+time shouldError "invalid_board_impossible" "calling with a forbidden char in an otherwise valid argument should throw"
+time shouldError "invalid_board_multiple_solutions" "calling with an ambiguous board should throw"
+time shouldSucceed "sudoku1"
+time shouldSucceed "sudoku_difficult"
+time shouldSucceed "sudoku_hardcore"
+time shouldSucceed "sudoku_uber"
+# time shouldError "sudoku_demon.sample" "long but multiple solution, should throw"
