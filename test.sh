@@ -1,8 +1,14 @@
+errorExit()
+{
+  echo "$1";
+  exit 1;
+}
 
 USER_BUILD=$1;
 TARGET=$USER_BUILD/colle-1
 # BUILD
-gcc -Wextra -Wall -Werror -O3 -o $TARGET $USER_BUILD/*.c
+gcc -Wextra -Wall -Werror -O3 -o $TARGET $USER_BUILD/*.c || errorExit "Error: compilation failed";
+
 
 shouldError()
 {
