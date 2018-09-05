@@ -127,7 +127,6 @@ int		main (int ac, char **av)
 	char 	tbis[82];
 	
 	i = 0;
-	test = 0;
 	if (!check_argv_sudoku (ac, av))
 		return (print_erreur());
 	sol =(char*) t;

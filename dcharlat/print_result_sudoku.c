@@ -33,8 +33,7 @@ int	print_solution_sudoku (char *sol)
 
 int	print_erreur()
 {
-	(void) write (1, "Erreur\n", 7);
-	return (1);
+	return (write (1, "Erreur\n", 7) + 1);
 }
 
 #endif
