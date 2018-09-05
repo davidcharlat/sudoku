@@ -1,7 +1,7 @@
 int solve(int position, char board[81]);
 int validate_board(char board[81]);
-void print_board(char board[81]);
-int print_error();
+int print_board(char board[81]);
+int print_error(void);
 
 int create_board(char *src, char *dest, int size)
 {
@@ -81,6 +81,5 @@ int main(int argc, char **argv) {
   inverse_board(board_reverse);
   if (compare_board(board, board_reverse))
     return print_error();
-  print_board(board);
-  return 0;
+  return print_board(board);
 }

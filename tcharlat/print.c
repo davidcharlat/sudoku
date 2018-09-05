@@ -1,35 +1,38 @@
 #include "unistd.h"
 
-void ft_putchar(char c)
+int ft_putchar(char c)
 {
-  (void) write(1, &c, 1);
+  return write(1, &c, 1);
 }
 
-void print_line(char *line)
+int print_line(char *line)
 {
   int i;
+  int error = 0;
 
   i = 0;
   while (i < 8) {
-    ft_putchar(line[i] + '0');
-    ft_putchar(' ');
+    error &= ft_putchar(line[i] + '0');
+    error &= ft_putchar(' ');
     i++;
   }
-  ft_putchar(line[8] + '0');
-  ft_putchar('\n');
+  error &= ft_putchar(line[8] + '0');
+  error &= ft_putchar('\n');
+  return error;
 }
 
-void print_board(char board[81])
+int print_board(char board[81])
 {
   int i;
+  int error = 0;
 
   i = 0;
   while (i < 9)
-    print_line(board + i++ * 9);
+    error &= print_line(board + i++ * 9);
+  return error;
 }
 
-int print_error()
+int print_error(void)
 {
-  (void) write(1, "Erreur\n", 7);
-  return 1;
+  return 1 & write(1, "Erreur\n", 7);
 }
