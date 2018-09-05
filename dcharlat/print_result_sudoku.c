@@ -4,12 +4,13 @@
 # include <stdlib.h>
 # include "write.c"
 
-void	ft_putchar(char c)
+int	ft_putchar(char c)
 {
 		write(1, &c, 1);
+		return (0);
 }
 
-int		print_solution_sudoku (char *sol)
+int	print_solution_sudoku (char *sol)
 {
 	int i;
 	int j;
@@ -31,7 +32,7 @@ int		print_solution_sudoku (char *sol)
 	return (0);
 }
 
-int		print_erreur()
+int	print_erreur()
 {
 	write (1, "Erreur\n", 7);
 	return (1);
