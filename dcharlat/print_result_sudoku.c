@@ -21,7 +21,8 @@ int	print_solution_sudoku (char *sol)
 		while (j < 9)
 		{
 			ft_putchar (sol[i * 9 + j]);
-			ft_putchar (' ');
+			if (j != 9)
+				ft_putchar (' ');
 			j++;
 		}
 		ft_putchar ('\n');
