@@ -1,15 +1,15 @@
-#ifndef __PRINT_RESULT_SUDOKU_H__
-#define __PRINT_RESULT_SUDOKU_H__
+#ifndef __PRINT_RESULT_SUDOKU_C__
+#define __PRINT_RESULT_SUDOKU_C__
 
 # include <stdlib.h>
-# include "write.h"
+# include "write.c"
 
-void ft_putchar(char c)
+void	ft_putchar(char c)
 {
 		write(1, &c, 1);
 }
 
-void	print_solution_sudoku (char *sol)
+int		print_solution_sudoku (char *sol)
 {
 	int i;
 	int j;
@@ -28,12 +28,13 @@ void	print_solution_sudoku (char *sol)
 		i++;
 	}
 	ft_putchar ('\n');
-	i = 0;
+	return (0);
 }
 
-void	print_erreur()
+int		print_erreur()
 {
-	write (1, "erreur\n", 7);
+	write (1, "Erreur\n", 7);
+	return (1);
 }
 
 #endif

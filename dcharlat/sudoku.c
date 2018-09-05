@@ -1,10 +1,8 @@
-#include "print_result_sudoku.h"
-#include "check_argv_sudoku.h"
-#include <stdlib.h>
-	#include <stdio.h>
-
-void	print_solution_sudoku(char *sol);
-void	print_erreur();
+int	check_argv_sudoku (int ac, char **av);
+int	print_erreur();
+int	print_solution_sudoku(char *sol);
+int	*fill_rank_to_place(int **rank_to_place, int **place_to_rank);
+int	*fill_place_to_rank(int **place_to_rank, char ***av);
 
 int		verif (int place, char **sol)
 {
@@ -34,88 +32,118 @@ int		verif (int place, char **sol)
 	return (1);
 }
 
-int		find_prev_place (int place, char ***av)
+
+char	*fill_sudoku_tab (char point, char **tab, char ***av)
 {
 	int i;
+	int j;
 
 	i = 1;
-	while (place - i >= 0)
+	while (i <= 9)
 	{
-		if((*av)[1 + ((place - i) / 9)][(place - i) % 9] == '.')
-			return (place - i);
-		i++;
+		j = 0;
+		while (j < 9)
+		{
+			(*tab)[(i - 1) * 9 + j] = (*av)[i][j];
+			if (((*av)[i][j] < '1') || ((*av)[i][j] > '9'))
+				(*tab)[(i - 1) * 9 + j] = point;
+			j++;
+		}
+	i++;
 	}
-	return (-1);
+	return (*tab);
 }
 
-int		find_next_place (int place, char ***av)
+char	*verify_inverse (char **sol, char ***av)
 {
-	int i;
+	int place;
+	int	*place_to_rank;
+	int	place_to_rank_init[81] = {0};
+	int	*rank_to_place;
+	int rank_to_place_init[82] = {0};
 
-	i = 1;
-	while (place + i < 81)
-	{
-		if((*av)[1 + ((place + i) / 9)][(place + i) % 9] == '.')
-			return (place + i);
-		i++;
+	place_to_rank = (int*)place_to_rank_init;
+	rank_to_place = (int*)rank_to_place_init;
+	place_to_rank = fill_place_to_rank (&place_to_rank, av);
+	rank_to_place = fill_rank_to_place (&rank_to_place, &place_to_rank);
+	place = rank_to_place[1];
+	while ((place >= 0) && (place < 81))
+	{	
+		(*sol)[place]--;
+		if (verif (place, sol))
+			place = rank_to_place[place_to_rank[place] + 1];
+		else 
+		{	
+			while ((*sol)[place] == '1')
+			{
+				(*sol)[place] = ':';
+				place = rank_to_place[place_to_rank[place] - 1];
+			}
+		}
 	}
-	return (81);
+	if (place == -1)
+		return ((void*)0);
+	return (*sol);
 }
 
 char	*add_and_verify (char **sol, char ***av)
 {
 	int place;
-long long count;
+	int	*place_to_rank;
+	int	place_to_rank_init[81] = {0};
+	int	*rank_to_place;
+	int rank_to_place_init[82] = {0};
 	
-count = 0;
-	place = find_next_place (-1, av);
+	place_to_rank = (int*)place_to_rank_init;
+	rank_to_place = (int*)rank_to_place_init;
+	place_to_rank = fill_place_to_rank (&place_to_rank, av);
+	rank_to_place = fill_rank_to_place (&rank_to_place, &place_to_rank);
+	place = rank_to_place[1];
 	while ((place >= 0) && (place < 81))
-	{
-count++;		
+	{	
 		(*sol)[place]++;
 		if (verif (place, sol))
-			place = find_next_place (place, av);
+			place = rank_to_place[place_to_rank[place] + 1];
 		else 
 		{	
 			while ((*sol)[place] == '9')
 			{
 				(*sol)[place] = '0';
-				place = find_prev_place (place, av);
+				place = rank_to_place[place_to_rank[place] - 1];
 			}
 		}
 	}
-printf ("solved with %lld trials", count);
 	if (place == -1)
-		return (NULL);
+		return ((void*)0);
 	return (*sol);
 }
 
-void	main (int ac, char **av)
+int		main (int ac, char **av)
 {
 	int		i;
-	int		j;
-	char*sol;
-	char t[82];
+	int 	test;
+	char	*sol;
+	char 	t[82];
+	char	*solbis;
+	char 	tbis[82];
 	
-	if (check_argv_sudoku (ac, av))
+	i = 0;
+	test = 0;
+	if (!check_argv_sudoku (ac, av))
+		return (print_erreur());
+	sol =(char*) t;
+	solbis = (char*) tbis;
+	sol = fill_sudoku_tab ('0',&sol, &av);
+	solbis = fill_sudoku_tab (':',&solbis, &av);
+	solbis = verify_inverse (&solbis, &av);
+	sol = add_and_verify (&sol, &av);
+	while (i < 81)
 	{
-		sol =(char*) t;
-		i = 1;
-		while (i <= 9)
-		{
-			j = 0;
-			while (j < 9)
-			{
-				sol[(i - 1) * 9 + j] = av[i][j];
-				if ((av[i][j] < '1') || (av[i][j] > '9'))
-					sol[(i - 1) * 9 + j] = '0';
-				j++;
-			}
+		if ((sol) && (sol[i] != solbis[i]))
+			return (print_erreur());
 		i++;
-		}
-		sol = add_and_verify (&sol, &av);
-		(sol ? print_solution_sudoku (sol) : print_erreur ());
 	}
-	else print_erreur();
+	return (sol ? print_solution_sudoku (sol) : print_erreur ());
 }
+
 

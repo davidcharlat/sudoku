@@ -1,5 +1,5 @@
-#ifndef __CHECK_ARGV_SUDOKU_H__
-#define __CHECK_ARGV_SUDOKU_H__
+#ifndef __CHECK_ARGV_SUDOKU_C__
+#define __CHECK_ARGV_SUDOKU_C__
 
 int		verify_sudoku_place (int place, char **av)
 {
