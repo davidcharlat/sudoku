@@ -27,7 +27,6 @@ int	print_solution_sudoku (char *sol)
 		ft_putchar ('\n');
 		i++;
 	}
-	ft_putchar ('\n');
 	return (0);
 }
 
