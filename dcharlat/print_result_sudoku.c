@@ -6,8 +6,7 @@
 
 int	ft_putchar(char c)
 {
-		write(1, &c, 1);
-		return (0);
+	return (write(1, &c, 1));
 }
 
 int	print_solution_sudoku (char *sol)
@@ -34,7 +33,7 @@ int	print_solution_sudoku (char *sol)
 
 int	print_erreur()
 {
-	write (1, "Erreur\n", 7);
+	(void) write (1, "Erreur\n", 7);
 	return (1);
 }
 

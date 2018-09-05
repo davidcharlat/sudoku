@@ -121,7 +121,6 @@ char	*add_and_verify (char **sol, char ***av)
 int		main (int ac, char **av)
 {
 	int		i;
-	int 	test;
 	char	*sol;
 	char 	t[82];
 	char	*solbis;
