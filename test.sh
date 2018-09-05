@@ -17,7 +17,11 @@ shouldError()
   ERRCODE=$?;
   if [ "$OUTPUT" != "Erreur" ]
   then
-    echo "Error: was expecting\nErreur\n\nand got\n$OUTPUT"
+    echo "Error: was expecting"
+    echo "Erreur"
+    echo ""
+    echo "and got"
+    echo "$OUTPUT"
     exit 1;
   elif [ $ERRCODE = 0 ]
   then
@@ -36,7 +40,10 @@ shouldSucceed()
   ERRCODE=$?;
   if [ "$OUTPUT" != "$EXPECTED" ]
   then
-    echo "Error: was expecting\n$EXPECTED\nand got\n$OUTPUT"
+    echo "Error: was expecting"
+    echo "$EXPECTED"
+    echo "and got"
+    echo "$OUTPUT"
     exit 1;
   elif [ $ERRCODE -ne 0 ]
   then
