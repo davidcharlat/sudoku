@@ -1,8 +1,8 @@
 #include "unistd.h"
 
-void putchar(char c)
+void ft_putchar(char c)
 {
-  write(1, &c, 1);
+  (void) write(1, &c, 1);
 }
 
 void print_line(char *line)
@@ -11,12 +11,12 @@ void print_line(char *line)
 
   i = 0;
   while (i < 8) {
-    putchar(line[i] + '0');
-    putchar(' ');
+    ft_putchar(line[i] + '0');
+    ft_putchar(' ');
     i++;
   }
-  putchar(line[8] + '0');
-  putchar('\n');
+  ft_putchar(line[8] + '0');
+  ft_putchar('\n');
 }
 
 void print_board(char board[81])
@@ -30,6 +30,6 @@ void print_board(char board[81])
 
 int print_error()
 {
-  write(1, "Erreur\n", 7);
+  (void) write(1, "Erreur\n", 7);
   return 1;
 }
