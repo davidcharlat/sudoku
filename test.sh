@@ -43,11 +43,12 @@ shouldSucceed()
 
 # TESTS
 time shouldError "invalid_arg" "calling with an invalid number of argument should throw"
-time shouldError "invalid_board_forbidden_input" "calling with a board with built in errors should throw"
-time shouldError "invalid_board_impossible" "calling with a forbidden char in an otherwise valid argument should throw"
+time shouldError "invalid_board_forbidden_input" "calling with a forbidden char in an otherwise valid argument should throw"
+time shouldError "invalid_board_impossible" "calling with a board with built in errors should throw"
+time shouldError "invalid_board_demon_impossible" "calling with a board with built in errors should throw"
 time shouldError "invalid_board_multiple_solutions" "calling with an ambiguous board should throw"
 time shouldSucceed "sudoku1"
 time shouldSucceed "sudoku_difficult"
 time shouldSucceed "sudoku_hardcore"
 time shouldSucceed "sudoku_uber"
-# time shouldError "sudoku_demon.sample" "long but multiple solution, should throw"
+time shouldSucceed "sudoku_demon" 
