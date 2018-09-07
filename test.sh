@@ -65,3 +65,4 @@ time shouldSucceed "sudoku_difficult"
 time shouldSucceed "sudoku_hardcore"
 time shouldSucceed "sudoku_uber"
 # time shouldSucceed "sudoku_demon"
+
