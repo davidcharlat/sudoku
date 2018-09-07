@@ -29,7 +29,7 @@ void  fill_graph_node(unsigned char pos, unsigned char row, unsigned char col, c
   }
 }
 
-void  fill_graph(unsigned char graph[20][81])
+void  fill_graph(unsigned char graph[81][20])
 {
   unsigned char position;
   unsigned char row;
