@@ -2,3 +2,4 @@ language: c
 script: 
   - ./test.sh tcharlat
   - ./test.sh dcharlat
+  - ./test_graph.sh tcharlat2
