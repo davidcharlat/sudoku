@@ -3,3 +3,4 @@ script:
   - ./test.sh tcharlat
   - ./test.sh dcharlat
   - ./test_graph.sh charlat
+  - ./test_cell.sh charlat
