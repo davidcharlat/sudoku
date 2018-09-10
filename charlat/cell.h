@@ -16,7 +16,8 @@ unsigned char	has_value;
 ** sum of unavailable from 0 to 8 should equal degrees_of_freedom
 */
 
-unsigned char update_cell(t_cell *cell, unsigned char update);
+unsigned char	update_cell(t_cell *cell, unsigned char update);
+void			initialize_cell(t_cell *cell);
 
 #endif /* !CELL_H */
 
