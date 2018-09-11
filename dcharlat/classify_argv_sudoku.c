@@ -1,90 +1,68 @@
 #ifndef __CLASSIFY_ARGV_SUDOKU_C__
 #define __CLASSIFY_ARGV_SUDOKU_C__
 
-int	sum_point_line(int line, char ***av)
-{
-	int i;
-	int sum;
-	
-	i = 0;
-	sum = 0;
-	while (i < 9)
-	{
-		if ((*av)[line + 1][i++] == '.')
-			sum++;
-	}
-	return (sum);
-}
+	#include <stdio.h>
 
-int	*fill_line_order (int **line_order, char ***av)
-{
-	int	to_find;
-	int	classed[9] = {0};
-	int i;
-	int	cursor_line_order;
-	
-	cursor_line_order = 0;
-	to_find = 0;
-	while (to_find <= 9)
-	{
-		i = 0;
-		while (i < 9)
-		{
-			if ((sum_point_line(i, av) == to_find) && (!classed[i]))
-			{
-				(*line_order)[cursor_line_order++] = i;
-				classed[i] = 1;
-				if (sum_point_line((3 * (i / 3) + (i + 1) % 3), av)
-						< sum_point_line((3 * (i / 3) + (i + 2) % 3), av))
-				{
-					(*line_order)[cursor_line_order++] 
-						= 3 * (i / 3) + (i + 1) % 3;
-					classed[3 * (i / 3) + (i + 1) % 3] = 1;
-					(*line_order)[cursor_line_order++] 
-						= 3 * (i / 3) + (i + 2) % 3;
-					classed[3 * (i / 3) + (i + 2) % 3] = 1;
-				}
-				else
-				{
-					(*line_order)[cursor_line_order++] 
-						= 3 * (i / 3) + (i + 2) % 3;
-					classed[3 * (i / 3) + (i + 2) % 3] = 1;
-					(*line_order)[cursor_line_order++] 
-						= 3 * (i / 3) + (i + 1) % 3;
-					classed[3 * (i / 3) + (i + 1) % 3] = 1;
-				}
-			}
-			i++;
-		}
-		to_find++;
-	}
-	return (*line_order);
-}
+char	*fill_sudoku_tab (char point, char **tab, char ***av);
+void 	fill_graph(unsigned char graph[81][20]);
 
 int	*fill_place_to_rank (int **place_to_rank, char ***av)
 {
-	int	line_order_init[9];
-	int *line_order;
+	unsigned char graph[81][20];
 	int rank;
+	int count;
+	int place;
+	int degrees;
+	int degree_max;
+	int place_of_max;
+	char *tab;
+	char t[82];
 	int i;
-	int j;
 	
-	i = 0;
 	rank = 1;
-	line_order = (int*)line_order_init;
-	line_order = fill_line_order (&line_order, av);
-	while (i < 9)
+	count = 0;
+	tab = (char*)t;
+	tab = fill_sudoku_tab ('.',&tab, av);
+	place = 0;
+	fill_graph(graph);
+	while (place < 81)
 	{
-		j = 0;
-		while (j < 9)
+		if (tab[place] != '.')
 		{
-			if ((*av)[line_order[i] + 1][j] == '.')
-				(*place_to_rank) [9 * line_order[i] + j] = rank++;
-			else
-				(*place_to_rank) [9 * line_order[i] + j] = 81;
-			j++;
+			(*place_to_rank)[place] = 81;
+			count++;
+//printf ("count: %d\n", count);
 		}
-		i++;
+		place++;
+	}
+	while (count < 81)
+	{
+		place_of_max = 0;
+		place = 0;
+		degree_max = 0;
+		while (place < 81)
+		{
+			i = 0;
+			if (tab[place] == '.')
+			{
+				degrees = 0;
+				while (i < 20)
+				{
+					if (tab[graph[place][i++]] != '.')
+						degrees++;
+				}
+				if (degrees >= degree_max)
+				{
+					degree_max = degrees;
+					place_of_max = place;
+				}
+			}
+			place++;
+		}
+		tab[place_of_max] = '0';
+		(*place_to_rank)[place_of_max] = rank++;
+		count++;
+//printf ("count: %d\n", count);
 	}
 	return (*place_to_rank);
 }

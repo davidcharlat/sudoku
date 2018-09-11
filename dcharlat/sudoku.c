@@ -1,8 +1,12 @@
+	#include <stdio.h>
+
 int	check_argv_sudoku (int ac, char **av);
 int	print_erreur();
 int	print_solution_sudoku(char *sol);
 int	*fill_rank_to_place(int **rank_to_place, int **place_to_rank);
 int	*fill_place_to_rank(int **place_to_rank, char ***av);
+void  fill_graph(unsigned char graph[81][20]);
+void  fill_graph_node(unsigned char pos, unsigned char row, unsigned char col, char node[20]);
 
 int		verif (int place, char **sol)
 {
@@ -31,7 +35,6 @@ int		verif (int place, char **sol)
 	}
 	return (1);
 }
-
 
 char	*fill_sudoku_tab (char point, char **tab, char ***av)
 {
@@ -88,6 +91,7 @@ char	*verify_inverse (char **sol, char ***av)
 
 char	*add_and_verify (char **sol, char ***av)
 {
+int i=0;
 	int place;
 	int	*place_to_rank;
 	int	place_to_rank_init[81] = {0};
@@ -96,8 +100,16 @@ char	*add_and_verify (char **sol, char ***av)
 	
 	place_to_rank = (int*)place_to_rank_init;
 	rank_to_place = (int*)rank_to_place_init;
+printf ("place_to_rank: \n");
 	place_to_rank = fill_place_to_rank (&place_to_rank, av);
+while (i<81)
+printf ("%d ", place_to_rank[i++]);
+printf ("\n rank_to_place:\n");
 	rank_to_place = fill_rank_to_place (&rank_to_place, &place_to_rank);
+i = 0;
+while (i<82)
+printf ("%d ", rank_to_place[i++]);
+printf ("\n");
 	place = rank_to_place[1];
 	while ((place >= 0) && (place < 81))
 	{	
@@ -133,8 +145,8 @@ int		main (int ac, char **av)
 	solbis = (char*) tbis;
 	sol = fill_sudoku_tab ('0',&sol, &av);
 	solbis = fill_sudoku_tab (':',&solbis, &av);
-	solbis = verify_inverse (&solbis, &av);
 	sol = add_and_verify (&sol, &av);
+	solbis = verify_inverse (&solbis, &av);
 	while (i < 81)
 	{
 		if ((sol) && (sol[i] != solbis[i]))
