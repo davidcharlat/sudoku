@@ -1,6 +1,3 @@
-#ifndef __CHECK_ARGV_SUDOKU_C__
-#define __CHECK_ARGV_SUDOKU_C__
-
 int		verify_sudoku_place (int place, char **av)
 {
 	int 	i;
@@ -64,5 +61,3 @@ int	check_argv_sudoku (int ac, char **av)
 	}
 	return ( may_sudoku_be_possible(av));
 }
-
-#endif

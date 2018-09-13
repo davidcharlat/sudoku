@@ -1,6 +1,3 @@
-#ifndef __PRINT_RESULT_SUDOKU_C__
-#define __PRINT_RESULT_SUDOKU_C__
-
 # include <stdlib.h>
 # include "write.c"
 
@@ -9,7 +6,7 @@ int	ft_putchar(char c)
 	return (write(1, &c, 1));
 }
 
-int	print_solution_sudoku (char *sol)
+int	print_solution_sudoku (char sol[82])
 {
 	int i;
 	int j;
@@ -36,4 +33,3 @@ int	print_erreur()
 	return (write (1, "Erreur\n", 7) + 1);
 }
 
-#endif

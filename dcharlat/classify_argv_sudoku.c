@@ -1,37 +1,29 @@
-#ifndef __CLASSIFY_ARGV_SUDOKU_C__
-#define __CLASSIFY_ARGV_SUDOKU_C__
-
-	#include <stdio.h>
-
-char	*fill_sudoku_tab (char point, char **tab, char ***av);
+char	fill_sudoku_tab (char point, char tab[82], char ***av);
 void 	fill_graph(unsigned char graph[81][20]);
 
-int	*fill_place_to_rank (int **place_to_rank, char ***av)
+void	fill_place_to_rank (int place_to_rank[81], char ***av)
 {
-	unsigned char graph[81][20];
-	int rank;
-	int count;
-	int place;
-	int degrees;
-	int degree_max;
-	int place_of_max;
-	char *tab;
-	char t[82];
-	int i;
+	unsigned char	graph[81][20];
+	int 			rank;
+	int				count;
+	int				place;
+	int				degrees;
+	int				degree_max;
+	int				place_of_max;
+	char			tab[82];
+	int				i;
 	
 	rank = 1;
 	count = 0;
-	tab = (char*)t;
-	tab = fill_sudoku_tab ('.',&tab, av);
 	place = 0;
+	fill_sudoku_tab ('.',tab, av);
 	fill_graph(graph);
 	while (place < 81)
 	{
 		if (tab[place] != '.')
 		{
-			(*place_to_rank)[place] = 81;
+			place_to_rank[place] = 81;
 			count++;
-//printf ("count: %d\n", count);
 		}
 		place++;
 	}
@@ -60,51 +52,47 @@ int	*fill_place_to_rank (int **place_to_rank, char ***av)
 			place++;
 		}
 		tab[place_of_max] = '0';
-		(*place_to_rank)[place_of_max] = rank++;
+		place_to_rank[place_of_max] = rank++;
 		count++;
-//printf ("count: %d\n", count);
 	}
-	return (*place_to_rank);
 }
 
-int	*verify_tab_rank_to_place (int **rtp)
+int	verify_tab_rank_to_place (int rtp[82])
 {
 	int i;
 	
-	if ((*rtp)[65] != 81)
+	if (rtp[65] != 81)
 	{
 		i = 1;
 		while (i < 82)
-			(*rtp)[i++] = -1;
+			rtp[i++] = -1;
 	}
-	return (*rtp);
+	return (1);
 }
 
-int	*fill_rank_to_place (int **rank_to_place, int **place_to_rank)
+int	fill_rank_to_place (int rank_to_place[82], int place_to_rank[81])
 {
 	int rank;
 	int i;
 	
 	i = 1;
 	while (i < 82)
-	 	(*rank_to_place)[i++] = 81;
+	 	rank_to_place[i++] = 81;
 	rank = 1;
-	(*rank_to_place)[0] = -1;
+	rank_to_place[0] = -1;
 	while (rank < 81)
 	{
 		i = 0;
 		while (i < 81)
 		{
-			if ((*place_to_rank)[i] == rank)
+			if (place_to_rank[i] == rank)
 			{
-				(*rank_to_place)[rank] = i;
+				rank_to_place[rank] = i;
 				i = 81;
 			}
 			else i++;
 		}
 		rank++;
 	}
-	return (verify_tab_rank_to_place(rank_to_place));
+	return (1);
 }
-
-# endif
