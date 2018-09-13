@@ -1,12 +1,5 @@
 void ft_memcpy(void *destination, void *source, unsigned int size)
 {
-	int i;
-	char *dst;
-	char *src;
-
-	dst = (char*)destination;
-	src = (char*)source;
-	i = 0;
-	while (i < size)
-		dst[i] = src[i++];
+	while (--size >= 0)
+		((char *)destination)[size] = ((char *)source)[size];
 }
