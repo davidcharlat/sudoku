@@ -1,13 +1,11 @@
-void  fill_graph_node(unsigned char pos, unsigned char row, unsigned char col, char node[20])
+void  fill_graph_node(unsigned char pos, unsigned char row, unsigned char col, unsigned char node[20])
 {
-	unsigned char	edge;
 	unsigned char	edge_row;
 	unsigned char	edge_col;
 	unsigned char	edge_pos;
 	unsigned char	next;
 
 	next = 0;
-	edge = 0;
 	edge_row = 0;
 	edge_pos = 0;
 	while (edge_row < 9)
