@@ -12,6 +12,7 @@ int	main(int argc, char **argv)
 	initialize_board(board);
 	// argc invalid -> return INVALID_ARG_NUMBER
 	// if parse_arg(board, &remaining) -> return INVALID_ARG_BOARD
+	// if (preliminary_test (argv)) -> BOARD CAN'T HAVE A UNIQUE SOLUTION
 	// copy_board(reverse_board, board)
 	// inverse_board(reverse_board)
 	// if solve_board_pathg_out(board, path, remaining) -> return BOARD_HAS_NO_SOLUTION
