@@ -2,6 +2,7 @@ int		check_argv_sudoku (int ac, char **av);
 int		print_erreur();
 int		print_solution_sudoku(char sol[82]);
 int		fill_rank_to_place(int rank_to_place[82], int place_to_rank[81]);
+int		preliminary_test (char **av);
 void	fill_place_to_rank(int place_to_rank[81], char ***av);
 
 int		verif (int place, char sol[82])
@@ -117,7 +118,8 @@ int		main (int ac, char **av)
 	char 	solbis[82];
 	
 	i = 0;
-	if ((!check_argv_sudoku (ac, av)) || (!fill_sudoku_tab ('0',sol, &av))
+	if ((!check_argv_sudoku (ac, av)) || (preliminary_test (av))
+		|| (!fill_sudoku_tab ('0',sol, &av))
 		|| (!add_and_verify (sol, &av)))
 		return (print_erreur());
 	fill_sudoku_tab (':',solbis, &av);
