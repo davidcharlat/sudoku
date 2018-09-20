@@ -1,5 +1,6 @@
 #include "./board.h"
 #include "./cell.h"
+#include "./preliminary_test.h"
 
 int	main(int argc, char **argv)
 {
